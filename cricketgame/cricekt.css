@@ -1,0 +1,40 @@
+body {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  #user-move, #computer-move, #result, #score {
+    margin-top: 20px;
+  }
+  
+  #user-move::before,
+  #computer-move::before,
+  #result::before,
+  #score::before {
+    content: '\2022'; /* Bullet point */
+    color: #3498db;
+    margin-right: 5px;
+  }
+  

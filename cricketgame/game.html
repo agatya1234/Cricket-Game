@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+       <link rel="stylesheet" href="cricekt.css">
+    
+    <title>CRICKET GAME</title>
+</head>
+<body>
+    <h1>BAT BALL STUMP</h1>
+    <button onclick="
+    let computerchoice = genratecomputerchoice();
+    let resultmsg=getresult('BAT',computerchoice);
+    showresult('BAT',computerchoice,resultmsg);
+    ">bat</button>
+    <button onclick="
+      computerchoice=genratecomputerchoice();
+       resultmsg =getresult('BALL',computerchoice);
+       showresult('BALL',computerchoice,resultmsg);
+    ">ball</button>
+    <button onclick="
+     computerchoice=genratecomputerchoice();
+     resultmsg=getresult('STUMP',computerchoice);
+     showresult('STUMP',computerchoice,resultmsg);
+    ">stump</button>
+    <button onclick="localStorage.clear() 
+    resetscore();
+    ">reset</button>
+    <h3 id="user-move"></h3>
+    <h3 id="computer-move"></h3>
+    <h3 id="result"></h3>
+    <h3 id="score"></h3>
+
+    <script>
+        let scorestr= localStorage.getItem('score');
+        let score;
+        resetscore(scorestr);
+        
+        function resetscore(scorestr){
+        score=JSON.parse(scorestr) ||{
+            win:0,
+            lost:0,
+            tie:0,
+        };
+    
+        score.displayscore= function(){
+             return `won:${score.win}, lost:${score.lost}, tie: ${score.tie}`;
+        };
+        showresult();
+        }
+    
+        function genratecomputerchoice(){
+            
+          let randomnumber=Math.random() * 3;
+           if(randomnumber>0 && randomnumber <=1){
+              return 'BAT';
+            }
+            else if(randomnumber>1 && randomnumber<=2){
+                return 'BALL';
+           }
+            else{
+               return 'STUMP';
+            }
+           // return  choice;
+        }
+        function getresult(usermove,computermove){
+          if(usermove==='BAT'){
+            if(computermove==='BALL'){
+                score.win++;
+                return 'user won';
+            }else if(computermove=='BAT'){
+                score.tie++;
+                 return 'its a tie';
+            }else{
+                score.lost++;
+                 return 'computer won';
+            }
+          } else if(usermove=== 'BALL'){
+            if(computermove==='BALL'){
+                score.win++;
+                return 'user won';
+            }else if(computermove=='BAT'){
+                score.tie++;
+                 return 'its a tie';
+            }else{
+                score.lost++;
+                return 'computer won';
+    }
+          }else{
+            if(computerchoice==='BALL'){
+                score.win++;
+                return 'user won';
+            }else if(computerchoice=='BAT'){
+                score.tie++;
+                return 'its a tie';
+            }else{
+                score.lost++;
+                return 'computer won';
+    }
+          }
+        }
+        function showresult(usermove,computermove,getresult){
+            localStorage.setItem('score',JSON.stringify(score));
+            document.querySelector('#user-move').innerText=`you have chosen ${usermove}`;
+            document.querySelector('#computer-move').innerText=`computer choice is ${computermove}  `;
+            document.querySelector('#result').innerText= getresult;
+            document.querySelector('#score').innerText=score.displayscore();
+            }
+    </script>
+    
+</body>
+</html>
